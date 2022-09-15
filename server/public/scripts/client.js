@@ -8,6 +8,7 @@ function addClickHandlers() {
   $('#submitBtn').on('click', handleSubmit);
 
   // TODO - Add code for edit & delete buttons
+  $('#bookShelf').on('click', '.deleteBtn', removeBook);
 }
 
 function handleSubmit() {
@@ -31,6 +32,16 @@ function addBook(bookToAdd) {
       console.log('Error in POST', error)
       alert('Unable to add book at this time. Please try again later.');
     });
+}
+
+function removeBook(event){
+  const bookId = $(event.target).data('bookid');
+  $.ajax({
+    type: 'DELETE',
+    url: `/books/${bookId}`
+  }).then(() => {
+    refreshBooks();
+  }).catch((err) => console.log(err));
 }
 
 // refreshBooks will get all books from the server and render to page
@@ -59,6 +70,7 @@ function renderBooks(books) {
         <td>${book.title}</td>
         <td>${book.author}</td>
         <td>${book.isRead}</td>
+        <td><button class="deleteBtn" data-bookid="${book.id}">Delete</button></td>
       </tr>
     `);
   }
