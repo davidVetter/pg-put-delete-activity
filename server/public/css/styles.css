@@ -41,6 +41,10 @@ tr:nth-child(even) {
   background-color: #fdfdfd;
 }
 
+th:hover {
+  cursor: pointer;
+}
+
 td {
   width: max-content;
   height: auto;
@@ -80,6 +84,7 @@ button {
 
 #submitBtn {
   padding: 1%;
+  background-color: green;
 }
 
 .editBtn {
@@ -87,7 +92,8 @@ button {
 }
 
 .editBtn:hover {
-  background-color: white;
+  background-color: darkgreen;
+  cursor: pointer;
 }
 
 .deleteBtn {
@@ -96,12 +102,28 @@ button {
 
 .deleteBtn:hover {
   background-color: darkred;
+  cursor: pointer;
 }
 
-.updateBtn:hover, #submitBtn:hover {
+#submitBtn:hover {
+  background-color: darkgreen;
+  cursor: pointer;
+}
+
+.green {
   background-color: green;
 }
 
-.updateBtn:hover {
-  src:url(../../img/icons8-trash-can-64.png);
+.green:hover {
+  background-color: darkgreen;
+  cursor: pointer;
+}
+
+.red {
+  background-color: red;
+}
+
+.red:hover {
+  background-color: darkred;
+  cursor: pointer;
 }

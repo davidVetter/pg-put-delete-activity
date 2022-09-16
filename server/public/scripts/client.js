@@ -8,7 +8,6 @@ $(document).ready(function(){
   console.log('jQuery sourced.');
   refreshBooks();
   addClickHandlers();
-  hoverEvents();
 });
 
 function addClickHandlers() {
@@ -166,6 +165,13 @@ function renderBooks(books) {
 
   for(let i = 0; i < books.length; i += 1) {
     let book = books[i];
+    console.log('This is book.isRead', book.isRead);
+    let updateBtnLink = `../../img/icons8-read-64.png`
+    let classColor = 'red';
+    if (book.isRead) {
+      updateBtnLink = `../../img/icons8-open-book-64.png`;
+      classColor = 'green';
+    };
     // For each book, append a new row to our table
     $('#bookShelf').append(`
       <tr>
@@ -185,10 +191,10 @@ function renderBooks(books) {
               <img class="deleteBtn" data-bookid="${book.id}" 
                 src="../../img/icons8-trash-can-64.png">
             </button>
-            <button class="updateBtn" data-bookid="${book.id}" 
+            <button class="updateBtn ${classColor}" data-bookid="${book.id}" 
             data-isbookread="${book.isRead}">
-              <img class="updateBtn mainIMG" data-bookid="${book.id}" 
-              data-isbookread="${book.isRead}" src="../../img/icons8-read-64.png">
+              <img class="updateBtn" data-bookid="${book.id}" 
+              data-isbookread="${book.isRead}" src="${updateBtnLink}">
             </button>
         </td>
         
@@ -243,16 +249,6 @@ function whichFieldMissing(book) {
 function infoToChange(title, author) {
   $('#title').val(title);
   $('#author').val(author);
-}
-
-function hoverEvents() {
-  $("body").on('mouseenter', '.mainIMG',
-  function() {
-    console.log('this worked');
-    $(this).attr("src","../../img/icons8-open-book-64.png")});
-  $('body').on( 'mouseleave', '.mainIMG',
-  function() {$(this).attr("src","../../img/icons8-read-64.png");
-});
 }
 
 function checkSortStatus() {
