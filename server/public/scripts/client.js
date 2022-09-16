@@ -14,6 +14,9 @@ function addClickHandlers() {
   $('#bookShelf').on('click', '.deleteBtn', removeBook);
   $('#bookShelf').on('click', '.updateBtn', markRead);
   $('#bookShelf').on('click', '.editBtn', editBookClick);
+  $('#authorHeadSort').on('click', refreshBooksAuthorSort);
+  $('#titleHeadSort').on('click', refreshBooks);
+  $('#readSort').on('click', refreshBookReadSort);
 }
 
 function handleSubmit() {
@@ -121,7 +124,33 @@ function refreshBooks() {
   });
 }
 
+function refreshBooksAuthorSort() {
+  $.ajax({
+    type: 'GET',
+    url: '/books/authorsort'
+  }).then(function(response) {
+    console.log(response);
+    renderBooks(response);
+    clearInputs();
+    setSubmitBtnTxt();
+  }).catch(function(error){
+    console.log('error in GET', error);
+  });
+}
 
+function refreshBookReadSort() {
+  $.ajax({
+    type: 'GET',
+    url: '/books/readsort'
+  }).then(function(response) {
+    console.log(response);
+    renderBooks(response);
+    clearInputs();
+    setSubmitBtnTxt();
+  }).catch(function(error){
+    console.log('error in GET', error);
+  });
+}
 
 
 // Displays an array of books to the DOM
@@ -133,16 +162,30 @@ function renderBooks(books) {
     // For each book, append a new row to our table
     $('#bookShelf').append(`
       <tr>
-        <td>${book.title}</td>
-        <td>${book.author}</td>
+        <td class="wordColumns">${book.title}</td>
+        <td class="wordColumns">${book.author}</td>
         <td class="isReadTxt">${book.isRead}</td>
-        <td><button class="editBtn" 
+        <div class="buttonsDiv">
+        <td class="buttonsTD">
+          <button class="editBtn">
+            <img class="editBtn" 
             data-bookid="${book.id}" 
             data-booktitle="${book.title}" 
-            data-bookauthor="${book.author}">Edit</button></td>
-        <td><button class="deleteBtn" data-bookid="${book.id}">Delete</button></td>
-        <td><button class="updateBtn" data-bookid="${book.id}" 
-            data-isbookread="${book.isRead}">Read?</button></td>
+            data-bookauthor="${book.author}" 
+            src="../../icons8-edit-64.png">
+          </button>
+          <button class="deleteBtn">
+              <img class="deleteBtn" data-bookid="${book.id}" 
+                src="../../icons8-trash-can-64.png">
+            </button>
+            <button class="updateBtn" data-bookid="${book.id}" 
+            data-isbookread="${book.isRead}">
+              <img class="updateBtn" data-bookid="${book.id}" 
+              data-isbookread="${book.isRead}" src="../../icons8-read-64.png">
+            </button>
+        </td>
+        
+        </div>
       </tr>
     `);
   }

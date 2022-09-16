@@ -22,10 +22,72 @@ section {
   background-color: linen;
   padding: .5em;
   margin-bottom: 1em;
+  border-radius: 7px;
+}
+
+#tableDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 th {
   text-align: left;
 }
 
+tr:nth-child(even) {
+  background-color: #fdfdfd;
+}
 
+td {
+  width: max-content;
+  padding: 1%;
+  margin-left: 2%;
+}
+
+.wordColumns {
+  width: 20vw;
+}
+
+.buttonsTD {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.isReadTxt {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+img {
+  width: 2.5vw;
+  height: auto;
+  margin: 5px;
+  border-radius: 7px;
+}
+
+button {
+  padding: 0;
+  border-radius: 7px;
+  border: none;
+}
+
+#submitBtn {
+  padding: 1%;
+}
+
+.editBtn {
+  background-color: green;
+}
+
+.deleteBtn {
+  background-color: red;
+}
+
+.updateBtn:hover, #submitBtn:hover {
+  background-color: green;
+}

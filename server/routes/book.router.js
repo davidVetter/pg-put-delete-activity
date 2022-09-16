@@ -4,9 +4,35 @@ const router = express.Router();
 
 const pool = require('../modules/pool');
 
-// Get all books
+// Get all books sorted by title
 router.get('/', (req, res) => {
   let queryText = 'SELECT * FROM "books" ORDER BY "title";';
+  pool.query(queryText).then(result => {
+    // Sends back the results in an object
+    res.send(result.rows);
+  })
+  .catch(error => {
+    console.log('error getting books', error);
+    res.sendStatus(500);
+  });
+});
+
+// Get all books sorted by author
+router.get('/authorsort', (req, res) => {
+  let queryText = 'SELECT * FROM "books" ORDER BY "author";';
+  pool.query(queryText).then(result => {
+    // Sends back the results in an object
+    res.send(result.rows);
+  })
+  .catch(error => {
+    console.log('error getting books', error);
+    res.sendStatus(500);
+  });
+});
+
+// Get all books sorted by author
+router.get('/readsort', (req, res) => {
+  let queryText = 'SELECT * FROM "books" ORDER BY "isRead" DESC, "title";';
   pool.query(queryText).then(result => {
     // Sends back the results in an object
     res.send(result.rows);
@@ -22,6 +48,9 @@ router.get('/', (req, res) => {
 router.post('/',  (req, res) => {
   let newBook = req.body;
   console.log(`Adding book`, newBook);
+  if (!req.body.title || !req.body.author) {
+    res.sendStatus(400);
+  }
 
   let queryText = `INSERT INTO "books" ("author", "title")
                    VALUES ($1, $2);`;
