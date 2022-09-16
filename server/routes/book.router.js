@@ -42,15 +42,47 @@ router.post('/',  (req, res) => {
 router.put('/:bookid', (req, res) => {
   console.log('req params: ', req.params);
   const bookid = req.params.bookid;
-  const query = `UPDATE "books" SET "isRead"=true WHERE id=$1`;
-  pool.query(query, [bookid]).then((response) => {
+  let isRead = req.body.isRead;
+  console.log("this is isRead on server", isRead);
+  if (isRead === 'true') {
+    isRead = false;
+  } else if (isRead === 'false') {
+    isRead = true;
+  }
+  const query = `UPDATE "books" SET "isRead"=$1 WHERE id=$2`;
+  pool.query(query, [isRead, bookid]).then((response) => {
     res.sendStatus(200);
   });
 });
 
+router.put('/:bookid/edit', (req, res) => {
+  console.log('req params: ',req.params);
+  console.log('req.body: ', req.body);
+  const title = req.body.title;
+  const author = req.body.author;
+  const bookid = req.params.bookid;
+  const query = `UPDATE "books" SET "title"=$1, "author"=$2 WHERE id=$3`
+  pool.query(query, [title, author, bookid]).then((response) => {
+    res.sendStatus(200);
+  });
+});
+
+// function editBook(){
+//   headingChange();
+//   $.ajax({
+//     type: 'PUT',
+//     url: `/books/${bookToEdit}/edit`
+//   }).then(function() {
+//     refreshBooks();
+//   }).catch(function(error){
+//     console.log('error in PUT', error);
+//   });
+// }
+
 // TODO - DELETE 
 // Removes a book to show that it has been read
 // Request must include a parameter indicating what book to update - the id
+
 router.delete('/:bookid', (req, res) => {
   console.log('req params: ', req.params);
   const bookid = req.params.bookid;
