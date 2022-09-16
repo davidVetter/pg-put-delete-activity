@@ -86,10 +86,22 @@ button {
   background-color: green;
 }
 
+.editBtn:hover {
+  background-color: white;
+}
+
 .deleteBtn {
   background-color: red;
 }
 
+.deleteBtn:hover {
+  background-color: darkred;
+}
+
 .updateBtn:hover, #submitBtn:hover {
   background-color: green;
+}
+
+.updateBtn:hover {
+  src:url(../../img/icons8-trash-can-64.png);
 }

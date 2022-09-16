@@ -1,10 +1,14 @@
 let addEditToggle = true;
 let bookToEdit;
+let sortTitle = true;
+let sortAuthor = false;
+let sortRead = false;
 
 $(document).ready(function(){
   console.log('jQuery sourced.');
   refreshBooks();
   addClickHandlers();
+  hoverEvents();
 });
 
 function addClickHandlers() {
@@ -61,7 +65,7 @@ function removeBook(event){
     type: 'DELETE',
     url: `/books/${bookId}`
   }).then(() => {
-    refreshBooks();
+    checkSortStatus();
   }).catch((err) => console.log(err));
 }
 
@@ -76,7 +80,7 @@ function markRead(event){
       isRead 
     }
   }).then(() => {
-    refreshBookReadSort();
+    checkSortStatus();
   })
 }
 
@@ -101,7 +105,7 @@ function editBook(title, author){
       author
     }
   }).then(function() {
-    refreshBooks();
+    checkSortStatus();
     addEditToggle = true;
     headingChange();
   }).catch(function(error){
@@ -119,6 +123,7 @@ function refreshBooks() {
     renderBooks(response);
     clearInputs();
     setSubmitBtnTxt();
+    titleSortSet();
   }).catch(function(error){
     console.log('error in GET', error);
   });
@@ -133,6 +138,7 @@ function refreshBooksAuthorSort() {
     renderBooks(response);
     clearInputs();
     setSubmitBtnTxt();
+    authorSortSet();
   }).catch(function(error){
     console.log('error in GET', error);
   });
@@ -147,6 +153,7 @@ function refreshBookReadSort() {
     renderBooks(response);
     clearInputs();
     setSubmitBtnTxt();
+    readSortSet();
   }).catch(function(error){
     console.log('error in GET', error);
   });
@@ -180,7 +187,7 @@ function renderBooks(books) {
             </button>
             <button class="updateBtn" data-bookid="${book.id}" 
             data-isbookread="${book.isRead}">
-              <img class="updateBtn" data-bookid="${book.id}" 
+              <img class="updateBtn mainIMG" data-bookid="${book.id}" 
               data-isbookread="${book.isRead}" src="../../img/icons8-read-64.png">
             </button>
         </td>
@@ -236,4 +243,42 @@ function whichFieldMissing(book) {
 function infoToChange(title, author) {
   $('#title').val(title);
   $('#author').val(author);
+}
+
+function hoverEvents() {
+  $("body").on('mouseenter', '.mainIMG',
+  function() {
+    console.log('this worked');
+    $(this).attr("src","../../img/icons8-open-book-64.png")});
+  $('body').on( 'mouseleave', '.mainIMG',
+  function() {$(this).attr("src","../../img/icons8-read-64.png");
+});
+}
+
+function checkSortStatus() {
+  if (sortTitle) {
+    refreshBooks();
+  } else if (sortAuthor) {
+    refreshBooksAuthorSort();
+  } else if (sortRead)  {
+    refreshBookReadSort();
+  };
+}
+
+function titleSortSet() {
+  sortTitle = true;
+  sortAuthor = false;
+  sortRead = false;
+}
+
+function authorSortSet() {
+  sortTitle = false;
+  sortAuthor = true;
+  sortRead = false;
+}
+
+function readSortSet() {
+  sortTitle = false;
+  sortAuthor = false;
+  sortRead = true;
 }
