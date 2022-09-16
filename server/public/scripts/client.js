@@ -80,10 +80,12 @@ function markRead(event){
 // This function will put the project in an edit mode to edit a specific books entry in the database
 function editBookClick(event){
   bookToEdit = $(event.target).data('bookid');
+  let title = $(event.target).data('booktitle');
+  let author = $(event.target).data('bookauthor');
   addEditToggle = false;
   headingChange();
   setSubmitBtnTxt();
-  clearInputs();
+  infoToChange(title, author);
 }
 
 function editBook(title, author){
@@ -120,6 +122,8 @@ function refreshBooks() {
 }
 
 
+
+
 // Displays an array of books to the DOM
 function renderBooks(books) {
   $('#bookShelf').empty();
@@ -132,9 +136,13 @@ function renderBooks(books) {
         <td>${book.title}</td>
         <td>${book.author}</td>
         <td class="isReadTxt">${book.isRead}</td>
-        <td><button class="editBtn" data-bookid="${book.id}">Edit</button</td>
+        <td><button class="editBtn" 
+            data-bookid="${book.id}" 
+            data-booktitle="${book.title}" 
+            data-bookauthor="${book.author}">Edit</button></td>
         <td><button class="deleteBtn" data-bookid="${book.id}">Delete</button></td>
-        <td><button class="updateBtn" data-bookid="${book.id}" data-isbookread="${book.isRead}">Mark Read</button></td>
+        <td><button class="updateBtn" data-bookid="${book.id}" 
+            data-isbookread="${book.isRead}">Read?</button></td>
       </tr>
     `);
   }
@@ -162,7 +170,10 @@ function setSubmitBtnTxt() {
 }
 
 function validateInputs(obj) {
- if (!obj.title || !obj.author) {
+  if (obj.title === 'A title is required!' || obj.author === 'An author is required!') {
+    return false;
+  }
+  if (!obj.title || !obj.author) {
   return false;
  }
  return true;
@@ -177,4 +188,9 @@ function whichFieldMissing(book) {
   } else if (!book.title) {
     $('#title').val('A title is required!');
   }
+}
+
+function infoToChange(title, author) {
+  $('#title').val(title);
+  $('#author').val(author);
 }
