@@ -1,16 +1,28 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Scarecrow', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 header {
-  background-color: brown;
+  background-color: #e4c1f9;
   padding: 1em;
   margin-bottom: 1em;
+  box-shadow: 0 0 2px #a9def9;
 }
 
 h1 {
   margin: 0;
+  font-size: 5.5vw;
+  text-shadow: 0 0 3px #a9def9;
+}
+
+h3 {
+  font-size: 2.6vw;
+  text-shadow: 0 0 2px #fcf6bd;
+}
+
+#topSection {
+  font-size: 2vw;
 }
 
 main {
@@ -19,10 +31,17 @@ main {
 }
 
 section {
-  background-color: linen;
+  background-color: #a9def9;
   padding: .5em;
   margin-bottom: 1em;
   border-radius: 7px;
+  box-shadow: 0 0 3px #e4c1f9;
+}
+
+input {
+  background-color: #fcf6bd;
+  font-size: 1vw;
+  padding-left: 2px;
 }
 
 #tableDiv {
@@ -34,11 +53,16 @@ section {
 
 th {
   text-align: left;
-  color: orange;
+  color: #FCF6bd;
+  border-bottom: 2px #e4c1f9 solid;
+  font-size: 3vw;
+  background-color: #a9def9;
+  text-shadow: 0 0 2px black;
+  width: fit-content;
 }
 
-tr:nth-child(even) {
-  background-color: #fdfdfd;
+tr:nth-child(odd) {
+  background-color: #fcf6bd;
 }
 
 th:hover {
@@ -50,6 +74,7 @@ td {
   height: auto;
   padding: 1%;
   margin-left: 2%;
+  font-size: 1.8vw;
 }
 
 .wordColumns {
@@ -57,16 +82,17 @@ td {
 }
 
 .buttonsTD {
-  margin: 0;
+  margin: auto 0;
   padding: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .isReadTxt {
-  padding-left: 15px;
-  padding-right: 15px;
+  width: 7vw;
 }
 
 img {
@@ -74,56 +100,64 @@ img {
   height: auto;
   margin: 5px;
   border-radius: 7px;
+  vertical-align: middle;
 }
 
 button {
   padding: 0;
   border-radius: 7px;
   border: none;
+  box-shadow: 0 0 2px black;
 }
 
-#submitBtn {
-  padding: 1%;
-  background-color: green;
+#submitBtn, #cancelBtn {
+  padding: 5px;
+  background-color: #acecc5;
+  font-size: 1.4vw;
+  font-family: 'Scarecrow';
 }
 
 .editBtn {
-  background-color: green;
+  background-color: #acecc5;
 }
 
 .editBtn:hover {
-  background-color: darkgreen;
+  background-color: #23954f;
   cursor: pointer;
 }
 
 .deleteBtn {
-  background-color: red;
+  background-color: #ff99c8;
 }
 
 .deleteBtn:hover {
-  background-color: darkred;
+  background-color: #b80056;
   cursor: pointer;
 }
 
 #submitBtn:hover {
-  background-color: darkgreen;
-  cursor: pointer;
+  background-color: #23954f;
+  cursor: pointer;  
 }
 
 .green {
-  background-color: green;
+  background-color: #acecc5;
 }
 
 .green:hover {
-  background-color: darkgreen;
+  background-color: #23954f;
   cursor: pointer;
 }
 
 .red {
-  background-color: red;
+  background-color: #ff99c8;
 }
 
 .red:hover {
-  background-color: darkred;
+  background-color: #b80056;
   cursor: pointer;
+}
+
+footer {
+  font-size: .5vw;
 }

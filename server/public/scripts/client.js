@@ -8,6 +8,8 @@ $(document).ready(function(){
   console.log('jQuery sourced.');
   refreshBooks();
   addClickHandlers();
+  $('#cancelBtn').hide();
+  $('#cancelBtn').on('click', cancelEdit);
 });
 
 function addClickHandlers() {
@@ -24,6 +26,7 @@ function addClickHandlers() {
 
 function handleSubmit() {
   headingChange();
+  $('#cancelBtn').hide();
   console.log('Submit button clicked.');
   let book = {};
   book.author = $('#author').val();
@@ -89,6 +92,7 @@ function editBookClick(event){
   let title = $(event.target).data('booktitle');
   let author = $(event.target).data('bookauthor');
   addEditToggle = false;
+  $('#cancelBtn').show();
   headingChange();
   setSubmitBtnTxt();
   infoToChange(title, author);
@@ -168,16 +172,18 @@ function renderBooks(books) {
     console.log('This is book.isRead', book.isRead);
     let updateBtnLink = `../../img/icons8-read-64.png`
     let classColor = 'red';
+    let readText = 'Nope';
     if (book.isRead) {
       updateBtnLink = `../../img/icons8-open-book-64.png`;
       classColor = 'green';
+      readText = 'Yep';
     };
     // For each book, append a new row to our table
     $('#bookShelf').append(`
-      <tr>
+      <tr class="bookRows">
         <td class="wordColumns">${book.title}</td>
         <td class="wordColumns">${book.author}</td>
-        <td class="isReadTxt">${book.isRead}</td>
+        <td class="isReadTxt">${readText}</td>
         <div class="buttonsDiv">
         <td class="buttonsTD">
           <button class="editBtn">
@@ -277,4 +283,12 @@ function readSortSet() {
   sortTitle = false;
   sortAuthor = false;
   sortRead = true;
+}
+
+function cancelEdit() {
+  $('#cancelBtn').hide();
+  clearInputs();
+  addEditToggle = true;
+  checkSortStatus();
+  headingChange();
 }
