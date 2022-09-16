@@ -76,7 +76,7 @@ function markRead(event){
       isRead 
     }
   }).then(() => {
-    refreshBooks();
+    refreshBookReadSort();
   })
 }
 
@@ -172,16 +172,16 @@ function renderBooks(books) {
             data-bookid="${book.id}" 
             data-booktitle="${book.title}" 
             data-bookauthor="${book.author}" 
-            src="../../icons8-edit-64.png">
+            src="../../img/icons8-edit-64.png">
           </button>
           <button class="deleteBtn">
               <img class="deleteBtn" data-bookid="${book.id}" 
-                src="../../icons8-trash-can-64.png">
+                src="../../img/icons8-trash-can-64.png">
             </button>
             <button class="updateBtn" data-bookid="${book.id}" 
             data-isbookread="${book.isRead}">
               <img class="updateBtn" data-bookid="${book.id}" 
-              data-isbookread="${book.isRead}" src="../../icons8-read-64.png">
+              data-isbookread="${book.isRead}" src="../../img/icons8-read-64.png">
             </button>
         </td>
         

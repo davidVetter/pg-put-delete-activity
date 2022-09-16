@@ -34,6 +34,7 @@ section {
 
 th {
   text-align: left;
+  color: orange;
 }
 
 tr:nth-child(even) {
